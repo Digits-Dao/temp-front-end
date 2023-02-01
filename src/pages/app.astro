@@ -1,7 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { WalletButton } from '../components/Wallet';
+import TestAddress from '../components/TestAddress';
+import MyPortfolio from '../components/MyPortfolio';
 ---
 
 <Layout title="Digits DAO App">
-  <h1>This is the App Page</h1>
+  <WalletButton client:only="solid-js" />
+  <MyPortfolio client:only="solid-js" />
+
+  <!-- TODO: Remove TestAddress and support the remainder of the UI with SolidJS -->
+  <!-- <TestAddress client:only="solid-js" /> -->
 </Layout>
