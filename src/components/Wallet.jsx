@@ -1,10 +1,11 @@
-import { configureChains, createClient, getAccount } from '@wagmi/core';
+import { configureChains, createClient, watchAccount } from '@wagmi/core';
 import { mainnet } from '@wagmi/core/chains';
 import { publicProvider } from '@wagmi/core/providers/public';
 import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc';
 import { Web3Modal } from '@web3modal/html';
 import { EthereumClient, modalConnectors, walletConnectProvider } from '@web3modal/ethereum';
 import { createSignal } from 'solid-js';
+import { watchBlockNumber } from '@wagmi/core';
 
 const chains = [mainnet];
 
@@ -36,20 +37,15 @@ const wagmiClient = createClient({
 const ethereumClient = new EthereumClient(wagmiClient, chains);
 const web3modal = new Web3Modal({ projectId: 'cd3195fb141f8aebac77cc5e44b5edca' }, ethereumClient);
 
-// Export address Signal to be used as a dependency in other ETH-Reading-Components
 const [address, setAddress] = createSignal(null);
 
-web3modal.subscribeModal((newState) => {
-  console.log(newState);
-
-  setTimeout(() => {
-    const account = getAccount();
-    setAddress(account.address === undefined ? null : account.address);
-  }, 100);
+watchAccount((account) => {
+  setAddress(account.address === undefined ? null : account.address);
 });
 
 function WalletButton() {
   return <w3m-core-button icon="hide" balance="show"></w3m-core-button>;
 }
 
-export { address, setAddress, WalletButton };
+// Export address Signal to be used as a dependency in other ETH-Reading-Components
+export { address, setAddress, wagmiClient, WalletButton };

@@ -10,7 +10,7 @@ import { utils } from 'ethers';
 const [walletData, { mutate: mutateWalletData, refetch: refetchWalletData }] = createResource(
   address,
   async (source, { value, refetching }) => {
-    console.log(`running fetchBalance w/ address: ${source}`);
+    console.log(`running walletData w/ address: ${source}`);
 
     const readContractsResp = await readContracts({
       contracts: [
@@ -46,9 +46,10 @@ const [walletData, { mutate: mutateWalletData, refetch: refetchWalletData }] = c
 function MyPortfolio() {
   const [intervalId, setIntervalId] = createSignal(null);
 
+  createEffect(() => console.log(`Address Updated: ${address()}`));
+
   // TODO: Hook Up Front End Refresh Interval
   createEffect(() => {
-    console.log(`Address: ${address()}`);
     if (address() === null) {
       mutateWalletData(null);
       clearInterval(intervalId());

@@ -55,5 +55,23 @@ export const DIGITS = {
         },
       ],
     },
+    uniV2: {
+      address: '0x24825D0eD8BaA195f360e9084fA0e508082C4E3e',
+      abi: [
+        {
+          constant: true,
+          inputs: [],
+          name: 'getReserves',
+          outputs: [
+            { internalType: 'uint112', name: '_reserve0', type: 'uint112' },
+            { internalType: 'uint112', name: '_reserve1', type: 'uint112' },
+            { internalType: 'uint32', name: '_blockTimestampLast', type: 'uint32' },
+          ],
+          payable: false,
+          stateMutability: 'view',
+          type: 'function',
+        },
+      ],
+    },
   },
 };
