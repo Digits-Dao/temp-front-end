@@ -1,6 +1,6 @@
-import NumFormatter from '../non-visual-logic/NumFormatter';
-import { DIGITS } from '../non-visual-logic/DigitsConstants';
-import { createResource, createEffect, createContext, useContext } from 'solid-js';
+import NumFormatter from '../non-visual-logic/numFormatter';
+import { DIGITS } from '../non-visual-logic/digitsConstants';
+import { createResource, createContext, useContext } from 'solid-js';
 import { readContracts } from '@wagmi/core';
 import { utils } from 'ethers';
 
@@ -8,8 +8,6 @@ const ContractDataContext = createContext();
 
 export function ContractDataProvider(props) {
   const [data, { mutate, refetch }] = createResource(async (source, { value, refetching }) => {
-    console.log(`running contractData`);
-
     const readContractsResp = await readContracts({
       contracts: [
         {
@@ -55,15 +53,6 @@ export function ContractDataProvider(props) {
   });
 
   const contract = { data, mutate, refetch };
-
-  // setInterval(() => {
-  //   console.log('refetching contract data');
-  //   refetch();
-  // }, 10_000);
-
-  // createEffect(() => {
-  //   console.log(data());
-  // });
 
   return (
     <ContractDataContext.Provider value={contract}>{props.children}</ContractDataContext.Provider>

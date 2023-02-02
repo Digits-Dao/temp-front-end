@@ -1,4 +1,4 @@
-import { configureChains, createClient, watchAccount } from '@wagmi/core';
+import { configureChains, createClient } from '@wagmi/core';
 import { mainnet } from '@wagmi/core/chains';
 import { publicProvider } from '@wagmi/core/providers/public';
 import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc';

@@ -1,10 +1,10 @@
 import { WagmiProvider } from '../contexts/wagmiConfig';
-import { wagmiClient } from '../non-visual-logic/WagmiClient'; // must include: implicit dependency
+import { wagmiClient } from '../non-visual-logic/wagmiClient'; // must include: implicit dependency
 import { AddressProvider } from '../contexts/address';
-import WalletButton from './Wallet';
-import DataBanner from './DataBanner';
-import MyPortfolio from './MyPortfolio';
-import ContractReader from './contractReader';
+import WalletButton from './wallet';
+import DataBanner from './dataBanner';
+import MyPortfolio from './myPortfolio';
+import ContractReader from '../non-visual-logic/contractReader';
 import { ContractDataProvider } from '../contexts/contractData';
 import { ContractAddrDataProvider } from '../contexts/contractAddrData';
 
@@ -16,7 +16,6 @@ export default function App() {
           <ContractAddrDataProvider>
             <ContractReader />
             <WalletButton />
-            {/* <ContractData /> */}
             <DataBanner />
             <h1>=============</h1>
             <MyPortfolio />
