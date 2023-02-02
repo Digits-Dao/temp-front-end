@@ -1,16 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { WalletButton } from '../components/Wallet';
-import TestAddress from '../components/TestAddress';
-import { MyPortfolio } from '../components/MyPortfolio';
-import DataBanner from '../components/DataBanner';
+// import { WalletButton } from '../components/Wallet';
+// import TestAddress from '../components/TestAddress';
+// import { MyPortfolio } from '../components/MyPortfolio';
+// import DataBanner from '../components/DataBanner';
+import App from '../components/App';
 ---
 
 <Layout title="Digits DAO App">
-  <WalletButton client:only="solid-js" />
-  <DataBanner client:only="solid-js" />
-  <h1>=============</h1>
-  <MyPortfolio client:only="solid-js" />
+  <App client:only="solid-js" />
 
   <!-- TODO: Remove TestAddress and support the remainder of the UI with SolidJS -->
   <!-- <TestAddress client:only="solid-js" /> -->

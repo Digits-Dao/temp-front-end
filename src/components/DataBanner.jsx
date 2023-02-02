@@ -1,8 +1,4 @@
-// TODO: This is necessary to import, even though it's not used, or else wagmi client is not
-// found. I can try a few things: exporting wagmi client, or making entire route a solid-js
-// client loaded component.
-import { wagmiClient } from './Wallet';
-
+// TODO: If address isn't imported here, the wallet contract reading breaks. Must be Astro?
 import NumFormatter from '../NumFormatter';
 import { DIGITS } from '../DigitsConstants';
 import { createResource, createEffect, createSignal } from 'solid-js';
