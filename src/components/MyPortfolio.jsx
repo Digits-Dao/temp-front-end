@@ -43,31 +43,31 @@ const [walletData, { mutate: mutateWalletData, refetch: refetchWalletData }] = c
   }
 );
 
+const [intervalId, setIntervalId] = createSignal(null);
+
+createEffect(() => console.log(`Address Updated: ${address()}`));
+
+// TODO: Hook Up Front End Refresh Interval
+createEffect(() => {
+  if (address() === null) {
+    mutateWalletData(null);
+    clearInterval(intervalId());
+  } else {
+    setIntervalId(
+      setInterval(() => {
+        console.log('refetching wallet data');
+        refetchWalletData();
+      }, 10_000)
+    );
+  }
+});
+
+createEffect(() => {
+  console.log(walletData());
+  console.log(walletData()?.digitsBalance);
+});
+
 function MyPortfolio() {
-  const [intervalId, setIntervalId] = createSignal(null);
-
-  createEffect(() => console.log(`Address Updated: ${address()}`));
-
-  // TODO: Hook Up Front End Refresh Interval
-  createEffect(() => {
-    if (address() === null) {
-      mutateWalletData(null);
-      clearInterval(intervalId());
-    } else {
-      setIntervalId(
-        setInterval(() => {
-          console.log('refetching wallet data');
-          refetchWalletData();
-        }, 10_000)
-      );
-    }
-  });
-
-  createEffect(() => {
-    console.log(walletData());
-    console.log(walletData()?.digitsBalance);
-  });
-
   return (
     <>
       <h1>{walletData.error && 'Error...'}</h1>
