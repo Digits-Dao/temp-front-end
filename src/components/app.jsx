@@ -5,8 +5,11 @@ import WalletButton from './wallet';
 import DataBanner from './dataBanner';
 import MyPortfolio from './myPortfolio';
 import ContractReader from '../non-visual-logic/contractReader';
+import ClaimButton from './claimButton';
 import { ContractDataProvider } from '../contexts/contractData';
 import { ContractAddrDataProvider } from '../contexts/contractAddrData';
+
+import { Toaster } from 'solid-toast';
 
 export default function App() {
   return (
@@ -19,6 +22,9 @@ export default function App() {
             <DataBanner />
             <h1>=============</h1>
             <MyPortfolio />
+            <ClaimButton />
+
+            <Toaster />
           </ContractAddrDataProvider>
         </ContractDataProvider>
       </AddressProvider>
