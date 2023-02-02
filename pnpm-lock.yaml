@@ -20,6 +20,7 @@ specifiers:
   prettier-plugin-astro: ^0.8.0
   prettier-plugin-tailwindcss: ^0.2.2
   solid-js: ^1.4.3
+  solid-toast: ^0.4.0
   tailwindcss: ^3.0.24
 
 dependencies:
@@ -32,6 +33,7 @@ dependencies:
   astro: 2.0.2_@types+node@18.11.18
   ethers: 5.7.2
   solid-js: 1.6.9
+  solid-toast: 0.4.0_solid-js@1.6.9
   tailwindcss: 3.2.4
 
 devDependencies:
@@ -6626,6 +6628,14 @@ packages:
     resolution: {integrity: sha512-kV3fMmm+1C2J95c8eDOPKGfZHnuAkHUBLG4hX1Xu08bXeAIPqmxuz/QdH3B8SIdTp3EatBVIyA6RCes3hrGzpg==}
     dependencies:
       csstype: 3.1.1
+    dev: false
+
+  /solid-toast/0.4.0_solid-js@1.6.9:
+    resolution: {integrity: sha512-ciJbj+n+7KbUN6wfwZsW7lqFESLoQ9sXMG4uJWuHrIw2f0GxX3/wLSKs0Q1YwdTZZRxyRJ1Nwc2eBVcJvs91+g==}
+    peerDependencies:
+      solid-js: ^1.5.4
+    dependencies:
+      solid-js: 1.6.9
     dev: false
 
   /sonic-boom/2.8.0:

@@ -5,6 +5,9 @@ import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc';
 import { Web3Modal } from '@web3modal/html';
 import { EthereumClient, modalConnectors, walletConnectProvider } from '@web3modal/ethereum';
 
+import { prepareWriteContract, writeContract } from '@wagmi/core';
+import { DIGITS } from '../non-visual-logic/digitsConstants';
+
 const chains = [mainnet];
 
 // Wagmi Core Client
@@ -35,4 +38,4 @@ const wagmiClient = createClient({
 const ethereumClient = new EthereumClient(wagmiClient, chains);
 const web3modal = new Web3Modal({ projectId: 'cd3195fb141f8aebac77cc5e44b5edca' }, ethereumClient);
 
-export { wagmiClient };
+export { wagmiClient, web3modal };

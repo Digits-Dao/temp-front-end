@@ -17,14 +17,8 @@ export default function ContractReader() {
 
   createEffect(
     on(blockNumber, () => {
-      console.log(`NEW BLOCK: ${blockNumber()}`);
-      console.log('===> contractData.refetch() <===');
       contractData.refetch();
-
-      if (address() !== null) {
-        console.log('===> contractAddrData.refetch() <===');
-        contractAddrData.refetch();
-      }
+      contractAddrData.refetch();
     })
   );
 

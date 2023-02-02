@@ -8,7 +8,7 @@ const ContractDataContext = createContext();
 
 export function ContractDataProvider(props) {
   const [data, { mutate, refetch }] = createResource(async (source, { value, refetching }) => {
-    const readContractsResp = await readContracts({
+    const resp = await readContracts({
       contracts: [
         {
           ...DIGITS.contracts.uniV2,
@@ -27,16 +27,16 @@ export function ContractDataProvider(props) {
     });
 
     const floatDigitsPrice =
-      parseFloat(utils.formatEther(readContractsResp[0]._reserve0)) /
-      parseFloat(utils.formatEther(readContractsResp[0]._reserve1));
+      parseFloat(utils.formatEther(resp[0]._reserve0)) /
+      parseFloat(utils.formatEther(resp[0]._reserve1));
     const digitsPrice = floatDigitsPrice.toFixed(5);
 
     const dividendsPaid = NumFormatter(
-      DIGITS.avaxDividendsDistributed + parseFloat(utils.formatEther(readContractsResp[1])),
+      DIGITS.avaxDividendsDistributed + parseFloat(utils.formatEther(resp[1])),
       2
     );
 
-    const floatValueBurnt = parseFloat(utils.formatEther(readContractsResp[2])) * floatDigitsPrice;
+    const floatValueBurnt = parseFloat(utils.formatEther(resp[2])) * floatDigitsPrice;
     const totalValueBurnt = NumFormatter(floatValueBurnt, 2);
 
     const fullyDilutedMcap = NumFormatter(

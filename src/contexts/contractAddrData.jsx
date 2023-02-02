@@ -4,11 +4,15 @@ import { createResource, createEffect, createSignal, createContext, useContext }
 import { readContracts } from '@wagmi/core';
 import { utils } from 'ethers';
 import { useAddress } from './address';
+import { useContractData } from './contractData';
+
+import { prepareWriteContract, writeContract } from '@wagmi/core';
 
 const ContractAddrDataContext = createContext();
 
 export function ContractAddrDataProvider(props) {
   const address = useAddress();
+  const contractData = useContractData();
 
   // createResource is only called when address !== false, null, undefined
   // so, we rely on only valid addresses being passed in to trigger balance reads with
@@ -17,7 +21,14 @@ export function ContractAddrDataProvider(props) {
     async (source, { value, refetching }) => {
       //   console.log(`[walletData] w/ address: ${source}`);
 
-      const readContractsResp = await readContracts({
+      // const {
+      //   data: claimData,
+      //   isLoading: claimIsLoading,
+      //   isSuccess: claimIsSuccess,
+      //   write: claimWrite,
+      // } = writeContract(claimConfig);
+
+      const resp = await readContracts({
         contracts: [
           {
             ...DIGITS.contracts.erc20,
@@ -38,12 +49,12 @@ export function ContractAddrDataProvider(props) {
       });
 
       // Change BigNum responses to 0, 500.00, 1.35k, 12.54M, etc
-      const strVals = readContractsResp.map((x) =>
-        NumFormatter(parseFloat(utils.formatEther(x)), 2)
-      );
+      const floatVals = resp.map((x) => parseFloat(utils.formatEther(x)));
+      const strVals = floatVals.map((x) => NumFormatter(x, 2));
 
       return {
         digitsBalance: strVals[0],
+        digitsBalanceUSD: NumFormatter(floatVals[0] * contractData.data()?.digitsPrice, 2),
         claimableDAI: strVals[1],
         totalClaimedDAI: strVals[2],
       };
