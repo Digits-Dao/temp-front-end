@@ -9,7 +9,7 @@ export function AddressProvider(props) {
   createEffect(() => console.log(`Address Updated: ${address()}`));
 
   watchAccount((account) => {
-    console.log(`[watchAccount] w/ ${account.address}`);
+    // console.log(`[watchAccount] w/ ${account.address}`);
     setAddress(account.address === undefined ? null : account.address);
   });
 

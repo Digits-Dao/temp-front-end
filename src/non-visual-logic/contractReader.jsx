@@ -11,23 +11,22 @@ export default function ContractReader() {
 
   const [blockNumber, setBlockNumber] = createSignal(0);
 
-  const unwatch = watchBlockNumber({ listen: true }, (blockNumber) => {
+  watchBlockNumber({ listen: true }, (blockNumber) => {
     setBlockNumber(blockNumber);
   });
 
   createEffect(
     on(blockNumber, () => {
-      console.log('=====> contractData.refetch() <=====');
+      console.log(`NEW BLOCK: ${blockNumber()}`);
+      console.log('===> contractData.refetch() <===');
       contractData.refetch();
 
       if (address() !== null) {
-        console.log('=====> contractAddrData.refetch() <=====');
+        console.log('===> contractAddrData.refetch() <===');
         contractAddrData.refetch();
       }
     })
   );
-
-  createEffect(() => console.log(`NEW BLOCK: ${blockNumber()}`));
 
   createEffect(() => {
     console.log(contractData.data());
