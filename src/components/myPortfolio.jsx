@@ -5,7 +5,7 @@ import ClaimButton from './claimButton';
 import CompoundButton from './compoundButton';
 
 export function MyPortfolioRef() {
-  const [{ data, mutate, refetch }] = useContractAddrData();
+  const [{ data }] = useContractAddrData();
 
   return (
     <>
@@ -20,7 +20,7 @@ export function MyPortfolioRef() {
 }
 
 export function MyPortfolio() {
-  const [{ data, mutate, refetch }] = useContractAddrData();
+  const [{ data }] = useContractAddrData();
 
   return (
     <div class="mx-auto">

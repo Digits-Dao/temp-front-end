@@ -1,7 +1,6 @@
 import { useContractAddrData } from '../contexts/contractAddrData';
 import { useContractData } from '../contexts/contractData';
-import { createSignal, createEffect, on } from 'solid-js';
-import { watchBlockNumber } from '@wagmi/core';
+import { createEffect, on } from 'solid-js';
 import { useBlockNumber } from '../contexts/blockNumber';
 
 export default function ContractReader() {

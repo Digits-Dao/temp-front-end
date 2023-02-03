@@ -1,4 +1,4 @@
-import { createSignal, createEffect, createContext, useContext } from 'solid-js';
+import { createSignal, createContext, useContext } from 'solid-js';
 import { watchBlockNumber } from '@wagmi/core';
 
 const BlockNumberContext = createContext();

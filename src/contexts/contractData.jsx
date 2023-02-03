@@ -7,7 +7,7 @@ import { utils } from 'ethers';
 const ContractDataContext = createContext();
 
 export function ContractDataProvider(props) {
-  const [data, { mutate, refetch }] = createResource(async (source, { value, refetching }) => {
+  const [data, { mutate, refetch }] = createResource(async () => {
     const resp = await readContracts({
       contracts: [
         {

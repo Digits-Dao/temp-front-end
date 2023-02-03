@@ -15,44 +15,41 @@ export function ContractAddrDataProvider(props) {
 
   // createResource is only called when address !== false, null, undefined
   // so, we rely on only valid addresses being passed in to trigger balance reads with
-  const [data, { mutate, refetch }] = createResource(
-    address,
-    async (source, { value, refetching }) => {
-      const resp = await readContracts({
-        contracts: [
-          {
-            ...DIGITS.contracts.erc20,
-            functionName: 'balanceOf',
-            args: [source],
-          },
-          {
-            ...DIGITS.contracts.dividends,
-            functionName: 'withdrawableDividendOf',
-            args: [source],
-          },
-          {
-            ...DIGITS.contracts.dividends,
-            functionName: 'withdrawnDividendOf',
-            args: [source],
-          },
-        ],
-      });
+  const [data, { mutate, refetch }] = createResource(address, async (source) => {
+    const resp = await readContracts({
+      contracts: [
+        {
+          ...DIGITS.contracts.erc20,
+          functionName: 'balanceOf',
+          args: [source],
+        },
+        {
+          ...DIGITS.contracts.dividends,
+          functionName: 'withdrawableDividendOf',
+          args: [source],
+        },
+        {
+          ...DIGITS.contracts.dividends,
+          functionName: 'withdrawnDividendOf',
+          args: [source],
+        },
+      ],
+    });
 
-      // Change BigNum responses to 0, 500.00, 1.35k, 12.54M, etc
-      const floatVals = resp.map((x) => parseFloat(utils.formatEther(x)));
-      const strVals = floatVals.map((x) => NumFormatter(x, 2));
+    // Change BigNum responses to 0, 500.00, 1.35k, 12.54M, etc
+    const floatVals = resp.map((x) => parseFloat(utils.formatEther(x)));
+    const strVals = floatVals.map((x) => NumFormatter(x, 2));
 
-      setHasClaimableDAI(floatVals[1] > 0);
-      // setHasClaimableDAI(!hasClaimableDAI());
+    setHasClaimableDAI(floatVals[1] > 0);
+    // setHasClaimableDAI(!hasClaimableDAI());
 
-      return {
-        digitsBalance: strVals[0],
-        digitsBalanceUSD: NumFormatter(floatVals[0] * contractData.data()?.digitsPrice, 2),
-        claimableDAI: strVals[1],
-        totalClaimedDAI: strVals[2],
-      };
-    }
-  );
+    return {
+      digitsBalance: strVals[0],
+      digitsBalanceUSD: NumFormatter(floatVals[0] * contractData.data()?.digitsPrice, 2),
+      claimableDAI: strVals[1],
+      totalClaimedDAI: strVals[2],
+    };
+  });
 
   createEffect(() => {
     if (address() === null) mutate(null);

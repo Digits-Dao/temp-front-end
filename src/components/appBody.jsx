@@ -1,13 +1,9 @@
 import WalletButton from './wallet';
 import DataBanner from './dataBanner';
 import { MyPortfolio } from './myPortfolio';
-import { useContractData } from '../contexts/contractData';
-import { createEffect } from 'solid-js';
 import LoadingBar from './loadingBar';
 
 export default function AppBody() {
-  const { data, mutate, refetch } = useContractData();
-
   return (
     <div class="flex h-full flex-col">
       <nav

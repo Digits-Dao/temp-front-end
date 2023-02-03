@@ -1,4 +1,4 @@
-import { createSignal, createEffect, createContext, useContext } from 'solid-js';
+import { createSignal, createContext, useContext } from 'solid-js';
 import { watchAccount } from '@wagmi/core';
 
 const AddressContext = createContext();

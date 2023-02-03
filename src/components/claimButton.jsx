@@ -17,46 +17,40 @@ import toast from 'solid-toast';
 export default function ClaimButton() {
   const [, hasClaimableDAI] = useContractAddrData();
 
-  const [claimData, { claimMutate, claimRefetch }] = createResource(
-    hasClaimableDAI,
-    async (source, { value, refetching }) => {
-      let claimConfig = null;
-      try {
-        claimConfig = await prepareWriteContract({
-          ...DIGITS.contracts.erc20,
-          functionName: 'claim',
-        });
+  const [claimData] = createResource(hasClaimableDAI, async () => {
+    let claimConfig = null;
+    try {
+      claimConfig = await prepareWriteContract({
+        ...DIGITS.contracts.erc20,
+        functionName: 'claim',
+      });
 
-        console.log('=== AFTER prepareWriteContract ===');
-      } catch {
-        console.error('[ClaimButton] prepareWriteContract failed');
-      }
-
-      return claimConfig;
+      console.log('=== AFTER prepareWriteContract ===');
+    } catch {
+      console.error('[ClaimButton] prepareWriteContract failed');
     }
-  );
+
+    return claimConfig;
+  });
 
   const [clickEvent, setClickEvent] = createSignal();
-  const [claimTxnData, { claimTxnMutate, claimTxnRefetch }] = createResource(
-    clickEvent,
-    async (source, { value, refetching }) => {
-      let data = null;
-      try {
-        data = await writeContract(claimData());
+  const [claimTxnData] = createResource(clickEvent, async () => {
+    let data = null;
+    try {
+      data = await writeContract(claimData());
 
-        toast.promise(data.wait, {
-          loading: 'Claiming DAI',
-          success: 'DAI claimed!',
-          error: 'An error occurred 😔',
-        });
-      } catch {
-        toast.error('Oops! Something went wrong');
-        console.error('[ClaimButton] writeContract failed');
-      }
-
-      return data;
+      toast.promise(data.wait, {
+        loading: 'Claiming DAI',
+        success: 'DAI claimed!',
+        error: 'An error occurred 😔',
+      });
+    } catch {
+      toast.error('Oops! Something went wrong');
+      console.error('[ClaimButton] writeContract failed');
     }
-  );
+
+    return data;
+  });
 
   createEffect(() => {
     console.log('claimTxnData');

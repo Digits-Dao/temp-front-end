@@ -17,46 +17,40 @@ import toast from 'solid-toast';
 export default function CompoundButton() {
   const [, hasClaimableDAI] = useContractAddrData();
 
-  const [compoundData, { compoundMutate, compoundRefetch }] = createResource(
-    hasClaimableDAI,
-    async (source, { value, refetching }) => {
-      let compoundConfig = null;
-      try {
-        compoundConfig = await prepareWriteContract({
-          ...DIGITS.contracts.erc20,
-          functionName: 'compound',
-        });
+  const [compoundData] = createResource(hasClaimableDAI, async () => {
+    let compoundConfig = null;
+    try {
+      compoundConfig = await prepareWriteContract({
+        ...DIGITS.contracts.erc20,
+        functionName: 'compound',
+      });
 
-        console.log('=== AFTER prepareWriteContract ===');
-      } catch {
-        console.error('[CompoundButton] prepareWriteContract failed');
-      }
-
-      return compoundConfig;
+      console.log('=== AFTER prepareWriteContract ===');
+    } catch {
+      console.error('[CompoundButton] prepareWriteContract failed');
     }
-  );
+
+    return compoundConfig;
+  });
 
   const [clickEvent, setClickEvent] = createSignal();
-  const [compoundTxnData, { compoundTxnMutate, compoundTxnRefetch }] = createResource(
-    clickEvent,
-    async (source, { value, refetching }) => {
-      let data = null;
-      try {
-        data = await writeContract(compoundData());
+  const [compoundTxnData] = createResource(clickEvent, async () => {
+    let data = null;
+    try {
+      data = await writeContract(compoundData());
 
-        toast.promise(data.wait, {
-          loading: <span>Compounding DAI &rarr; DIGITS</span>,
-          success: <span>DAI &rarr; DIGITS compounded!</span>,
-          error: 'An error occurred 😔',
-        });
-      } catch {
-        toast.error('Oops! Something went wrong');
-        console.error('[CompoundButton] writeContract failed');
-      }
-
-      return data;
+      toast.promise(data.wait, {
+        loading: <span>Compounding DAI &rarr; DIGITS</span>,
+        success: <span>DAI &rarr; DIGITS compounded!</span>,
+        error: 'An error occurred 😔',
+      });
+    } catch {
+      toast.error('Oops! Something went wrong');
+      console.error('[CompoundButton] writeContract failed');
     }
-  );
+
+    return data;
+  });
 
   createEffect(() => {
     console.log('compoundTxnData');

@@ -1,0 +1,52 @@
+{
+  // ...
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:jsx-a11y/recommended",
+    "plugin:astro/recommended",
+    "plugin:solid/recommended",
+    "prettier" // prettier must be last
+  ],
+  "plugins": ["import", "jsx-a11y", "astro", "solid"],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  },
+  // ...
+  "overrides": [
+    {
+      // Define the configuration for `.astro` file.
+      "files": ["*.astro"],
+      // Allows Astro components to be parsed.
+      "parser": "astro-eslint-parser",
+      // Parse the script in `.astro` as TypeScript by adding the following configuration.
+      // It"s the setting you need when using TypeScript.
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "extraFileExtensions": [".astro"]
+      },
+      "rules": {
+        // override/add rules settings here, such as:
+        // "astro/no-set-html-directive": "error"
+      }
+    }
+    // ...
+  ]
+}
