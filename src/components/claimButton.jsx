@@ -4,15 +4,15 @@ import { DIGITS } from '../non-visual-logic/digitsConstants';
 import { useContractAddrData } from '../contexts/contractAddrData';
 import toast from 'solid-toast';
 
-const makePromise = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const toss = Math.random();
-      if (toss > 0.5) resolve('Successful!');
-      reject('Something went wrong!');
-    }, 2000);
-  });
-};
+// const makePromise = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const toss = Math.random();
+//       if (toss > 0.5) resolve('Successful!');
+//       reject('Something went wrong!');
+//     }, 2000);
+//   });
+// };
 
 export default function ClaimButton() {
   const [, hasClaimableDAI] = useContractAddrData();
@@ -64,16 +64,15 @@ export default function ClaimButton() {
   });
 
   return (
-    <div class="ml-4 mt-2 flex-shrink-0">
-      <button
-        type="button"
-        class="relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-        onClick={(e) => setClickEvent(e)}
-        disabled={!hasClaimableDAI()}
-        title={hasClaimableDAI() ? '' : 'No DAI to claim'}
-      >
-        Claim
-      </button>
-    </div>
+    <button
+      type="button"
+      class="mt-10 rounded-bl-xl border bg-slate-100 text-base font-semibold text-indigo-900 shadow-lg hover:bg-slate-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50"
+      onClick={(e) => setClickEvent(e)}
+      disabled={!hasClaimableDAI()}
+      // disabled={false}
+      title={hasClaimableDAI() ? '' : 'No DAI to claim'}
+    >
+      Claim
+    </button>
   );
 }

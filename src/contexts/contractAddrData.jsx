@@ -6,8 +6,6 @@ import { utils } from 'ethers';
 import { useAddress } from './address';
 import { useContractData } from './contractData';
 
-import { prepareWriteContract, writeContract } from '@wagmi/core';
-
 const ContractAddrDataContext = createContext();
 
 export function ContractAddrDataProvider(props) {
@@ -20,15 +18,6 @@ export function ContractAddrDataProvider(props) {
   const [data, { mutate, refetch }] = createResource(
     address,
     async (source, { value, refetching }) => {
-      //   console.log(`[walletData] w/ address: ${source}`);
-
-      // const {
-      //   data: claimData,
-      //   isLoading: claimIsLoading,
-      //   isSuccess: claimIsSuccess,
-      //   write: claimWrite,
-      // } = writeContract(claimConfig);
-
       const resp = await readContracts({
         contracts: [
           {
@@ -69,7 +58,7 @@ export function ContractAddrDataProvider(props) {
     if (address() === null) mutate(null);
   });
 
-  createEffect(() => console.log(`hasClaimableDAI(): ${hasClaimableDAI()}`));
+  // createEffect(() => console.log(`hasClaimableDAI(): ${hasClaimableDAI()}`));
 
   const contract = { data, mutate, refetch };
 

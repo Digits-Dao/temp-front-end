@@ -20,7 +20,19 @@ export default function App() {
 
               <AppBody />
 
-              <Toaster position="top-center" />
+              <Toaster
+                position="bottom-right"
+                toastOptions={{
+                  style: {
+                    'background-image': 'linear-gradient(to right, var(--tw-gradient-stops))',
+                    '--tw-gradient-from': '#1e40af',
+                    '--tw-gradient-to': 'rgb(30 64 175 / 0)',
+                    '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
+                    '--tw-gradient-to': '#312e81',
+                    color: '#fff',
+                  },
+                }}
+              />
             </BlockNumberProvider>
           </ContractAddrDataProvider>
         </ContractDataProvider>
