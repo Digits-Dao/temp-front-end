@@ -2,8 +2,11 @@ import WalletButton from './wallet';
 import DataBanner from './dataBanner';
 import { MyPortfolio } from './myPortfolio';
 import LoadingBar from './loadingBar';
+import { DIGITS } from '../non-visual-logic/digitsConstants';
 
 export default function AppBody() {
+  const buyURL = `https://app.1inch.io/#/1/simple/swap/DAI/${DIGITS.contracts.erc20.address}`;
+
   return (
     <div class="flex h-full flex-col">
       <nav
@@ -18,7 +21,7 @@ export default function AppBody() {
         </div>
         <div class="flex flex-row gap-2 sm:gap-7">
           <a
-            href="https://app.1inch.io/#/1/unified/swap/DAI/DIGITS"
+            href={buyURL}
             target="_blank"
             rel="noreferrer noopener"
             class="flex items-center justify-center rounded-md bg-slate-700 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

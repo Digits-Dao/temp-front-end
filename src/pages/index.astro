@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/layout.astro';
 import Footer from '../components/footer.astro';
+import { DIGITS } from '../non-visual-logic/digitsConstants';
 
 const navigation = [
   {
@@ -14,6 +15,8 @@ const navigation = [
     href: 'https://dexscreener.com/ethereum/0x24825d0ed8baa195f360e9084fa0e508082c4e3e',
   },
 ];
+
+const buyURL = `https://app.1inch.io/#/1/simple/swap/DAI/${DIGITS.contracts.erc20.address}`;
 ---
 
 <script>
@@ -199,7 +202,7 @@ const navigation = [
             </p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="https://app.1inch.io/#/1/unified/swap/DAI/DIGITS"
+                href={buyURL}
                 target="_blank"
                 rel="noreferrer noopener"
                 class="flex items-center justify-center rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
