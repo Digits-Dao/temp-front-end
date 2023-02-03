@@ -31,8 +31,8 @@ export default function LoadingBar() {
   );
 
   return (
-    <div class="mb-4 h-1.5 w-full bg-white">
-      <div class="h-1.5 bg-slate-700" style={widthString()}></div>
+    <div class="mb-4 h-1.5 w-full">
+      <div class="h-1.5 bg-slate-700" style={widthString()} />
     </div>
   );
 }

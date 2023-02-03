@@ -52,10 +52,10 @@ export default function CompoundButton() {
     return data;
   });
 
-  createEffect(() => {
-    console.log('compoundTxnData');
-    console.log(compoundTxnData());
-  });
+  // createEffect(() => {
+  //   console.log('compoundTxnData');
+  //   console.log(compoundTxnData());
+  // });
 
   return (
     <button

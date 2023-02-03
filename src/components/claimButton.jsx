@@ -52,10 +52,10 @@ export default function ClaimButton() {
     return data;
   });
 
-  createEffect(() => {
-    console.log('claimTxnData');
-    console.log(claimTxnData());
-  });
+  // createEffect(() => {
+  //   console.log('claimTxnData');
+  //   console.log(claimTxnData());
+  // });
 
   return (
     <button
