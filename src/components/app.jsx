@@ -1,16 +1,13 @@
 import { WagmiProvider } from '../contexts/wagmiConfig';
 import { wagmiClient } from '../non-visual-logic/wagmiClient'; // must include: implicit dependency
 import { AddressProvider } from '../contexts/address';
-import WalletButton from './wallet';
-import DataBanner from './dataBanner';
-import MyPortfolio from './myPortfolio';
 import ContractReader from '../non-visual-logic/contractReader';
-import ClaimButton from './claimButton';
-import CompoundButton from './compoundButton';
+import AppBody from './appBody';
 import { ContractDataProvider } from '../contexts/contractData';
 import { ContractAddrDataProvider } from '../contexts/contractAddrData';
 
 import { Toaster } from 'solid-toast';
+import { BlockNumberProvider } from '../contexts/blockNumber';
 
 export default function App() {
   return (
@@ -18,15 +15,13 @@ export default function App() {
       <AddressProvider>
         <ContractDataProvider>
           <ContractAddrDataProvider>
-            <ContractReader />
-            <WalletButton />
-            <DataBanner />
-            <h1>=============</h1>
-            <MyPortfolio />
-            <ClaimButton />
-            <CompoundButton />
+            <BlockNumberProvider>
+              <ContractReader />
 
-            <Toaster position="top-center" />
+              <AppBody />
+
+              <Toaster position="top-center" />
+            </BlockNumberProvider>
           </ContractAddrDataProvider>
         </ContractDataProvider>
       </AddressProvider>
