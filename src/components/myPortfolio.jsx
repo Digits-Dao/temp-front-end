@@ -1,7 +1,7 @@
 import { useContractAddrData } from '../contexts/contractAddrData';
 
 export default function MyPortfolio() {
-  const { data, mutate, refetch } = useContractAddrData();
+  const [{ data, mutate, refetch }] = useContractAddrData();
 
   return (
     <>

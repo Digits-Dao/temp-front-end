@@ -6,7 +6,7 @@ import { watchBlockNumber } from '@wagmi/core';
 
 export default function ContractReader() {
   const contractData = useContractData();
-  const contractAddrData = useContractAddrData();
+  const [contractAddrData] = useContractAddrData();
   const address = useAddress();
 
   const [blockNumber, setBlockNumber] = createSignal(0);

@@ -4,54 +4,54 @@ import { DIGITS } from '../non-visual-logic/digitsConstants';
 import { useContractAddrData } from '../contexts/contractAddrData';
 import toast from 'solid-toast';
 
-const makePromise = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const toss = Math.random();
-      if (toss > 0.5) resolve('Successful!');
-      reject('Something went wrong!');
-    }, 2000);
-  });
-};
+// const makePromise = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const toss = Math.random();
+//       if (toss > 0.5) resolve('Successful!');
+//       reject('Something went wrong!');
+//     }, 2000);
+//   });
+// };
 
-export default function ClaimButton() {
+export default function CompoundButton() {
   const [, hasClaimableDAI] = useContractAddrData();
 
-  const [claimData, { claimMutate, claimRefetch }] = createResource(
+  const [compoundData, { compoundMutate, compoundRefetch }] = createResource(
     hasClaimableDAI,
     async (source, { value, refetching }) => {
-      let claimConfig = null;
+      let compoundConfig = null;
       try {
-        claimConfig = await prepareWriteContract({
+        compoundConfig = await prepareWriteContract({
           ...DIGITS.contracts.erc20,
-          functionName: 'claim',
+          functionName: 'compound',
         });
 
         console.log('=== AFTER prepareWriteContract ===');
       } catch {
-        console.error('[ClaimButton] prepareWriteContract failed');
+        console.error('[CompoundButton] prepareWriteContract failed');
       }
 
-      return claimConfig;
+      return compoundConfig;
     }
   );
 
   const [clickEvent, setClickEvent] = createSignal();
-  const [claimTxnData, { claimTxnMutate, claimTxnRefetch }] = createResource(
+  const [compoundTxnData, { compoundTxnMutate, compoundTxnRefetch }] = createResource(
     clickEvent,
     async (source, { value, refetching }) => {
       let data = null;
       try {
-        data = await writeContract(claimData());
+        data = await writeContract(compoundData());
 
         toast.promise(data.wait, {
-          loading: 'Claiming DAI',
-          success: 'DAI claimed!',
+          loading: <span>Compounding DAI &rarr; DIGITS</span>,
+          success: <span>DAI &rarr; DIGITS compounded!</span>,
           error: 'An error occurred 😔',
         });
       } catch {
         toast.error('Oops! Something went wrong');
-        console.error('[ClaimButton] writeContract failed');
+        console.error('[CompoundButton] writeContract failed');
       }
 
       return data;
@@ -59,8 +59,8 @@ export default function ClaimButton() {
   );
 
   createEffect(() => {
-    console.log('claimTxnData');
-    console.log(claimTxnData());
+    console.log('compoundTxnData');
+    console.log(compoundTxnData());
   });
 
   return (
@@ -71,7 +71,7 @@ export default function ClaimButton() {
         onClick={(e) => setClickEvent(e)}
         disabled={!hasClaimableDAI()}
       >
-        Claim
+        Compound DAI &rarr; DIGITS
       </button>
     </div>
   );

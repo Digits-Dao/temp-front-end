@@ -13,6 +13,7 @@ const ContractAddrDataContext = createContext();
 export function ContractAddrDataProvider(props) {
   const address = useAddress();
   const contractData = useContractData();
+  const [hasClaimableDAI, setHasClaimableDAI] = createSignal(false);
 
   // createResource is only called when address !== false, null, undefined
   // so, we rely on only valid addresses being passed in to trigger balance reads with
@@ -52,6 +53,9 @@ export function ContractAddrDataProvider(props) {
       const floatVals = resp.map((x) => parseFloat(utils.formatEther(x)));
       const strVals = floatVals.map((x) => NumFormatter(x, 2));
 
+      setHasClaimableDAI(floatVals[1] > 0);
+      // setHasClaimableDAI(!hasClaimableDAI());
+
       return {
         digitsBalance: strVals[0],
         digitsBalanceUSD: NumFormatter(floatVals[0] * contractData.data()?.digitsPrice, 2),
@@ -65,10 +69,12 @@ export function ContractAddrDataProvider(props) {
     if (address() === null) mutate(null);
   });
 
+  createEffect(() => console.log(`hasClaimableDAI(): ${hasClaimableDAI()}`));
+
   const contract = { data, mutate, refetch };
 
   return (
-    <ContractAddrDataContext.Provider value={contract}>
+    <ContractAddrDataContext.Provider value={[contract, hasClaimableDAI]}>
       {props.children}
     </ContractAddrDataContext.Provider>
   );
