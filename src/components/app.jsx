@@ -23,6 +23,7 @@ export default function App() {
               <Toaster
                 position="bottom-right"
                 toastOptions={{
+                  duration: 6000,
                   style: {
                     'background-image': 'linear-gradient(to right, var(--tw-gradient-stops))',
                     '--tw-gradient-from': '#1e40af',
