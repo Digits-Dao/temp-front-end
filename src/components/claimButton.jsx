@@ -39,7 +39,7 @@ export default function ClaimButton() {
     try {
       data = await writeContract(claimData());
 
-      toast.promise(data.wait, {
+      toast.promise(data.wait(0), {
         loading: 'Claiming DAI',
         success: 'DAI claimed!',
         error: 'An error occurred 😔',
@@ -52,10 +52,10 @@ export default function ClaimButton() {
     return data;
   });
 
-  // createEffect(() => {
-  //   console.log('claimTxnData');
-  //   console.log(claimTxnData());
-  // });
+  createEffect(() => {
+    console.log('claimTxnData');
+    console.log(claimTxnData());
+  });
 
   return (
     <button
