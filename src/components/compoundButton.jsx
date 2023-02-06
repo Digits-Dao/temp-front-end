@@ -39,7 +39,7 @@ export default function CompoundButton() {
     try {
       data = await writeContract(compoundData());
 
-      toast.promise(data.wait(0), {
+      toast.promise(data.wait(1), {
         loading: <span>Compounding DAI &rarr; DIGITS</span>,
         success: <span>DAI &rarr; DIGITS compounded!</span>,
         error: 'An error occurred 😔',

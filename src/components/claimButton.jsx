@@ -39,7 +39,7 @@ export default function ClaimButton() {
     try {
       data = await writeContract(claimData());
 
-      toast.promise(data.wait(0), {
+      toast.promise(data.wait(1), {
         loading: 'Claiming DAI',
         success: 'DAI claimed!',
         error: 'An error occurred 😔',
