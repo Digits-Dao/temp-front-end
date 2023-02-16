@@ -6,8 +6,6 @@ const BlockNumberContext = createContext();
 export function BlockNumberProvider(props) {
   const [blockNumber, setBlockNumber] = createSignal(0);
 
-  // createEffect(() => console.log(`Block Number Updated: ${blockNumber()}`));
-
   watchBlockNumber({ listen: true }, (blockNumber) => {
     setBlockNumber(blockNumber);
   });

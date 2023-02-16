@@ -15,13 +15,5 @@ export default function ContractReader() {
     })
   );
 
-  // createEffect(() => {
-  //   console.log(contractData.data());
-  // });
-
-  // createEffect(() => {
-  //   console.log(contractAddrData.data());
-  // });
-
   return;
 }

@@ -24,10 +24,8 @@ export default function CompoundButton() {
         ...DIGITS.contracts.erc20,
         functionName: 'compound',
       });
-
-      console.log('=== AFTER prepareWriteContract ===');
     } catch {
-      console.error('[CompoundButton] prepareWriteContract failed');
+      console.error('CompoundButton::prepareWriteContract failed');
     }
 
     return compoundConfig;
@@ -46,15 +44,10 @@ export default function CompoundButton() {
       });
     } catch {
       toast.error('Oops! Something went wrong');
-      console.error('[CompoundButton] writeContract failed');
+      console.error('CompoundButton::writeContract failed');
     }
 
     return data;
-  });
-
-  createEffect(() => {
-    console.log('compoundTxnData');
-    console.log(compoundTxnData());
   });
 
   return (

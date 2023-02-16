@@ -55,8 +55,6 @@ export function ContractAddrDataProvider(props) {
     if (address() === null) mutate(null);
   });
 
-  // createEffect(() => console.log(`hasClaimableDAI(): ${hasClaimableDAI()}`));
-
   const contract = { data, mutate, refetch };
 
   return (

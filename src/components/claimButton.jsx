@@ -24,10 +24,8 @@ export default function ClaimButton() {
         ...DIGITS.contracts.erc20,
         functionName: 'claim',
       });
-
-      console.log('=== AFTER prepareWriteContract ===');
     } catch {
-      console.error('[ClaimButton] prepareWriteContract failed');
+      console.error('ClaimButton::prepareWriteContract failed');
     }
 
     return claimConfig;
@@ -46,15 +44,10 @@ export default function ClaimButton() {
       });
     } catch {
       toast.error('Oops! Something went wrong');
-      console.error('[ClaimButton] writeContract failed');
+      console.error('ClaimButton::writeContract failed');
     }
 
     return data;
-  });
-
-  createEffect(() => {
-    console.log('claimTxnData');
-    console.log(claimTxnData());
   });
 
   return (
